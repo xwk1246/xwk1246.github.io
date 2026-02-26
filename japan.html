@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>北九州 8 天 7 夜自由行規劃</title>
+    <title>北九州 8 天 7 夜自由行 (星宇航空版)</title>
     <style>
         :root {
             --primary: #c93a40; 
@@ -143,9 +143,9 @@
         }
         .tag.hotel { background: #e3f2fd; color: var(--secondary); }
         .tag.transport { background: #fff3e0; color: #e65100; }
+        .tag.flight { background: #f3e5f5; color: #8e24aa; }
         .tag.warning { background: #ffeaa7; color: #d63031; }
 
-        /* Generic Card Styles for Suggestions & Resources */
         .info-card {
             background: var(--card-bg);
             padding: 30px;
@@ -155,7 +155,6 @@
         }
 
         .info-card h3 { color: var(--primary); margin-top: 0; border-bottom: 2px solid #f1f2f6; padding-bottom: 10px;}
-        .info-card h4 { color: var(--text-main); margin-bottom: 5px;}
         .info-card p, .info-card ul { color: var(--text-muted); }
         .info-card a { color: var(--secondary); text-decoration: none; font-weight: bold;}
         .info-card a:hover { text-decoration: underline; }
@@ -173,8 +172,8 @@
 <body>
 
     <nav>
-        <button class="nav-btn active" onclick="switchTab('itinerary', this)">📍 行程總覽</button>
-        <button class="nav-btn" onclick="switchTab('suggestions', this)">💡 行程建議與修改</button>
+        <button class="nav-btn active" onclick="switchTab('itinerary', this)">📍 專屬行程總覽</button>
+        <button class="nav-btn" onclick="switchTab('suggestions', this)">💡 行程優化與秘訣</button>
         <button class="nav-btn" onclick="switchTab('resources', this)">🔗 實用參考資料</button>
     </nav>
 
@@ -183,8 +182,12 @@
         <div id="itinerary" class="page-section active">
             <header>
                 <h1>北九州 8 天 7 夜自由行</h1>
-                <p>不自駕 ＋ JR北九州Pass ＋ 由布院溫泉體驗</p>
+                <p>星宇航空 ＋ JR北九州Pass (Day3啟用) ＋ 行李寄送免提重物</p>
             </header>
+            
+            <div style="text-align: center; margin-bottom: 40px;">
+                
+            </div>
 
             <div class="timeline">
                 <div class="day-card">
@@ -192,12 +195,16 @@
                     <div class="content">
                         <h2>DAY 1 <span>6/2 (二) 熊本</span></h2>
                         <ul>
-                            <li><strong>10:45</strong> 抵達熊本機場，搭乘機場巴士至熊本站</li>
+                            <li><strong>10:45 抵達熊本機場 (星宇 JX846)</strong></li>
+                            <li>搭乘「機場利木津巴士」至熊本車站 (約50分)</li>
                             <li>下午輕鬆散策：熊本城、櫻之馬場城彩苑</li>
                             <li>上通／下通商店街逛街</li>
-                            <li>晚餐建議：勝烈亭炸豬排 或 馬肉料理</li>
+                            <li>晚餐：勝烈亭炸豬排 或特色馬肉料理</li>
                         </ul>
-                        <div class="tags"><span class="tag hotel">🛏 THE BLOSSOM KUMAMOTO</span></div>
+                        <div class="tags">
+                            <span class="tag flight">✈️ JX846</span>
+                            <span class="tag hotel">🛏 THE BLOSSOM KUMAMOTO</span>
+                        </div>
                     </div>
                     <div class="image-box"><img src="https://images.unsplash.com/photo-1596401057633-54a8fe8ef647?auto=format&fit=crop&w=800&q=80" alt="Kumamoto"></div>
                 </div>
@@ -207,12 +214,12 @@
                     <div class="content">
                         <h2>DAY 2 <span>6/3 (三) 阿蘇</span></h2>
                         <ul>
-                            <li>參加阿蘇 Klook 套裝一日遊（熊本站出發）</li>
+                            <li>參加阿蘇 Klook 套裝一日遊（熊本站集合）</li>
                             <li>景點：阿蘇中岳火山口、草千里、阿蘇神社</li>
-                            <li>約 17:00 結束行程返回熊本</li>
+                            <li>約 17:00 結束行程返回熊本市區</li>
                         </ul>
                         <div class="tags">
-                            <span class="tag transport">🎫 JR Pass 啟用</span>
+                            <span class="tag transport">🚌 專車接送 (無須JR Pass)</span>
                             <span class="tag hotel">🛏 THE BLOSSOM KUMAMOTO</span>
                         </div>
                     </div>
@@ -224,12 +231,13 @@
                     <div class="content">
                         <h2>DAY 3 <span>6/4 (四) 由布院</span></h2>
                         <ul>
+                            <li><strong>💡 早上透過飯店將大行李寄送至福岡博多</strong></li>
                             <li>熊本 → 久留米 (九州新幹線)</li>
                             <li>久留米 → 由布院 (搭乘 <strong>由布院之森</strong>)</li>
                             <li>下午：湯之坪街道、金鱗湖、甜點巡禮</li>
                         </ul>
                         <div class="tags">
-                            <span class="tag transport">🚄 由布院之森 (需劃位)</span>
+                            <span class="tag transport">🎫 JR Pass 啟用 (Day 1)</span>
                             <span class="tag hotel">🛏 Lamp no Yado</span>
                         </div>
                     </div>
@@ -241,12 +249,15 @@
                     <div class="content">
                         <h2>DAY 4 <span>6/5 (五) 別府</span></h2>
                         <ul>
-                            <li>上午再訪金鱗湖</li>
-                            <li>搭乘特急前往別府</li>
+                            <li>清晨漫步無人的金鱗湖</li>
+                            <li>由布院 → 別府 (搭乘特急「由布號」)</li>
                             <li>別府地獄巡禮（海地獄＋血之池地獄）</li>
                             <li>晚餐：別府特產溫泉蒸料理</li>
                         </ul>
-                        <div class="tags"><span class="tag hotel">🛏 別府站附近飯店</span></div>
+                        <div class="tags">
+                            <span class="tag transport">🎫 JR Pass (Day 2)</span>
+                            <span class="tag hotel">🛏 別府站附近飯店</span>
+                        </div>
                     </div>
                     <div class="image-box"><img src="https://images.unsplash.com/photo-1601625463687-25e221b66710?auto=format&fit=crop&w=800&q=80" alt="Beppu Onsen"></div>
                 </div>
@@ -256,12 +267,14 @@
                     <div class="content">
                         <h2>DAY 5 <span>6/6 (六) 小倉/門司港</span></h2>
                         <ul>
-                            <li>別府搭乘特急至小倉，小倉城散步，旦過市場午餐</li>
+                            <li>別府 → 小倉 (特急音速號)，手提袋放車站置物櫃</li>
+                            <li>小倉城散步，旦過市場午餐</li>
                             <li>前往門司港，懷舊街區散步，吃燒咖哩</li>
-                            <li>傍晚搭乘特急「音速號」移動至福岡博多</li>
+                            <li>傍晚搭乘特急「音速號」移動至福岡博多，領回大行李</li>
                         </ul>
                         <div class="tags">
-                            <span class="tag warning">⚠️ 勿搭新幹線 (見建議)</span>
+                            <span class="tag transport">🎫 JR Pass (Day 3)</span>
+                            <span class="tag warning">⚠️ 小倉→博多勿搭新幹線</span>
                             <span class="tag hotel">🛏 博多</span>
                         </div>
                     </div>
@@ -273,12 +286,12 @@
                     <div class="content">
                         <h2>DAY 6 <span>6/7 (日) 太宰府/福岡</span></h2>
                         <ul>
-                            <li>上午：太宰府天滿宮、表參道、隈研吾星巴克</li>
-                            <li>下午：天神地下街、博多運河城</li>
-                            <li>晚餐：中洲屋台體驗福岡夜生活</li>
+                            <li>上午：搭西鐵前往太宰府天滿宮、表參道、隈研吾星巴克</li>
+                            <li>下午：返回市區逛天神地下街、博多運河城</li>
+                            <li>晚餐：體驗福岡夜生活 中洲屋台 / 牛腸鍋</li>
                         </ul>
                         <div class="tags">
-                            <span class="tag transport">🎫 JR Pass 最後一日</span>
+                            <span class="tag transport">🎫 JR Pass (Day 4)</span>
                             <span class="tag hotel">🛏 博多</span>
                         </div>
                     </div>
@@ -290,12 +303,13 @@
                     <div class="content">
                         <h2>DAY 7 <span>6/8 (一) 糸島</span></h2>
                         <ul>
-                            <li>搭乘 JR筑肥線 前往筑前前原站，轉乘公車</li>
-                            <li>櫻井二見浦（白色鳥居＋絕美海景）、海景咖啡廳</li>
-                            <li>下午返回市區最後採買</li>
+                            <li>地鐵至姪濱轉 JR筑肥線，再轉昭和巴士</li>
+                            <li>絕美糸島海岸線：櫻井二見浦（白色鳥居＋夫婦岩）</li>
+                            <li>海景咖啡廳享受悠閒時光</li>
+                            <li>下午返回福岡市區做最後採買</li>
                         </ul>
                         <div class="tags">
-                            <span class="tag transport">🚌 需刷西瓜卡/ICOCA</span>
+                            <span class="tag transport">🎫 JR Pass 最後一日 (Day 5)</span>
                             <span class="tag hotel">🛏 博多</span>
                         </div>
                     </div>
@@ -307,10 +321,14 @@
                     <div class="content">
                         <h2>DAY 8 <span>6/9 (二) 賦歸</span></h2>
                         <ul>
-                            <li>早上福岡市區最後補給</li>
-                            <li>11:30 前抵達福岡機場</li>
-                            <li>14:15 班機起飛 ✈️</li>
+                            <li>博多車站周邊豐盛早餐，最後補給</li>
+                            <li>搭乘福岡市營地鐵至福岡機場 (超近，僅需10分鐘)</li>
+                            <li>建議 11:30 前抵達機場</li>
+                            <li><strong>14:15 班機起飛 ✈️ (星宇 JX841)</strong></li>
                         </ul>
+                        <div class="tags">
+                            <span class="tag flight">✈️ JX841</span>
+                        </div>
                     </div>
                     <div class="image-box"><img src="https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=800&q=80" alt="Fukuoka City"></div>
                 </div>
@@ -319,58 +337,52 @@
 
         <div id="suggestions" class="page-section">
             <header>
-                <h1>行程健檢與優化建議</h1>
-                <p>避開常見陷阱，讓旅程更順暢</p>
+                <h1>行程優化與避坑秘訣</h1>
+                <p>掌握這些細節，讓旅程質感大幅提升</p>
             </header>
 
             <div class="info-card">
-                <h3>🚨 最大的陷阱：小倉到博多的交通 (DAY 5)</h3>
+                <h3>💡 最強戰略：大行李寄送 (DAY 3)</h3>
+                <p>由於中間會連續兩天更換溫泉區飯店（由布院、別府），這時如果拖著 28 吋大行李轉車、逛老街絕對會崩潰。</p>
+                <p><strong>強烈建議：</strong>在 DAY 3 早上離開「熊本 THE BLOSSOM KUMAMOTO」時，直接在飯店櫃檯填寫黑貓宅急便單子，將大行李寄到 DAY 5 的「博多住宿飯店」。您與旅伴只需背著輕便的兩天一夜旅行袋前往由布院與別府，DAY 5 晚上抵達博多時，行李已經在房間等你了！</p>
+            </div>
+
+            <div class="info-card">
+                <h3>🚨 交通陷阱：小倉到博多千萬別搭新幹線 (DAY 5)</h3>
                 <p><strong>注意：</strong>「小倉 ⇄ 博多」這段的新幹線屬於「山陽新幹線」（JR西日本營運），<strong>你的 JR 北九州 Pass 不能搭乘這段新幹線！</strong></p>
-                <p><strong>修改建議：</strong>請搭乘 JR 九州的<strong>特急列車（如：音速號 Sonic）</strong>。車程約 40-50 分鐘，Pass 完美涵蓋，千萬不要走錯月台搭到新幹線，否則會被要求補高額票價喔！</p>
+                <p><strong>正解：</strong>請搭乘 JR 九州的<strong>特急列車（如：音速號 Sonic）</strong>。車程約 40-50 分鐘，Pass 完美涵蓋。走錯月台搭到新幹線會被要求補高額票價喔！</p>
             </div>
-
+            
             <div class="info-card">
-                <h3>🧳 行李寄放與寄送建議 (DAY 3 - DAY 5)</h3>
-                <p>由於中間會換兩次飯店（由布院、別府），拖著大行李逛街很痛苦：</p>
-                <ul>
-                    <li><strong>方案 A（行李特急）：</strong>在 DAY 3 離開熊本時，直接將大件行李用「宅急便」寄到 DAY 5 的博多飯店。帶輕便背包去由布院和別府住兩晚。</li>
-                    <li><strong>方案 B（投幣置物櫃）：</strong>DAY 5 抵達小倉時，將行李鎖在小倉車站的置物櫃（小倉車站置物櫃很多），然後兩手空空去逛小倉城與門司港，晚上再回小倉拿行李搭車去博多。</li>
-                </ul>
-            </div>
-
-            <div class="info-card">
-                <h3>🚌 糸島交通提醒 (DAY 7)</h3>
-                <p>你的 JR Pass 在 DAY 6 已經到期，DAY 7 往糸島需使用 IC 卡（如 Suica、ICOCA）。</p>
-                <p>要到達「櫻井二見浦（白色鳥居）」，坐火車到「筑前前原站」後，必須轉乘<strong>昭和巴士（西浦線）</strong>。公車班次不多，建議出發前務必用 Google Maps 查好公車接駁時間，以免在車站空等。</p>
+                <h3>🎫 JR Pass 啟用時間調整</h3>
+                <p>考量到 DAY 2 參加阿蘇 Klook 巴士團不需搭車，我們將 <strong>JR 北九州 5 日券順延至 DAY 3 啟用</strong>。這樣剛好能涵蓋到 DAY 7 前往糸島的 JR 筑肥線路段，將票券價值發揮到極致！</p>
             </div>
         </div>
 
         <div id="resources" class="page-section">
             <header>
                 <h1>實用參考資料庫</h1>
-                <p>訂票、時刻表與美食查詢</p>
+                <p>訂票、時刻表與交通攻略</p>
             </header>
 
             <div class="info-card">
                 <h3>🚆 交通與預約</h3>
                 <ul>
-                    <li><a href="https://kyushurailpass.jrkyushu.co.jp/reserve/TopPage" target="_blank">JR九州座位線上預約系統</a> (用於提前劃位「由布院之森」，強烈建議提早劃位！)</li>
+                    <li><a href="https://kyushurailpass.jrkyushu.co.jp/reserve/TopPage" target="_blank">JR九州座位線上預約系統</a> (用於提前劃位 DAY 3 必搭的「由布院之森」，強烈建議開放訂位第一天就搶！)</li>
                     <li><a href="https://www.jrkyushu.co.jp/chinese/railpass/railpass.html" target="_blank">JR 北九州鐵路周遊券官網範圍圖</a></li>
-                    <li><a href="http://showa-bus.jp/" target="_blank">昭和巴士官網 (糸島交通時刻表查詢)</a></li>
+                    <li><a href="http://showa-bus.jp/" target="_blank">昭和巴士官網 (前往 DAY 7 糸島櫻井二見浦必查公車時刻表)</a></li>
                 </ul>
             </div>
 
             <div class="info-card">
-                <h3>🍣 美食餐廳推薦查詢 (Tabelog)</h3>
+                <h3>✈️ 航班資訊</h3>
                 <ul>
-                    <li><a href="https://tabelog.com/tw/kumamoto/A4301/A430101/43000166/" target="_blank">勝烈亭 新市街本店 (熊本最強炸豬排)</a></li>
-                    <li><a href="https://tabelog.com/tw/fukuoka/rstLst/motsunabe/" target="_blank">福岡 牛腸鍋 (もつ鍋) 排名推薦</a></li>
-                    <li><a href="https://tabelog.com/tw/fukuoka/rstLst/ramen/" target="_blank">福岡 豚骨拉麵 排名推薦</a></li>
+                    <li><a href="https://www.starlux-airlines.com/" target="_blank">星宇航空官網 (JX846 / JX841)</a></li>
                 </ul>
             </div>
             
             <div class="info-card">
-                <h3>♨️ 景點資訊</h3>
+                <h3>♨️ 景點官方資訊</h3>
                 <ul>
                     <li><a href="http://www.beppu-jigoku.com/" target="_blank">別府地獄巡禮官網</a></li>
                     <li><a href="https://www.mojiko.info/" target="_blank">門司港懷舊區導覽</a></li>
@@ -383,21 +395,16 @@
     <script>
         // SPA Tab 切換邏輯
         function switchTab(tabId, btnElement) {
-            // 隱藏所有頁面
             document.querySelectorAll('.page-section').forEach(page => {
                 page.classList.remove('active');
             });
-            // 取消所有按鈕的 active 狀態
             document.querySelectorAll('.nav-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
 
-            // 顯示目標頁面
             document.getElementById(tabId).classList.add('active');
-            // 設定當前按鈕為 active
             btnElement.classList.add('active');
 
-            // 如果切換回行程總覽，重新觸發動畫檢測
             if(tabId === 'itinerary') {
                 checkCardsVisibility();
             }
