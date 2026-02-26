@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>北九州 8 日深度自駕與攝影之旅</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #34495e;
+            --accent: #e67e22;
+            --success: #27ae60;
+            --bg: #f4f6f7;
+            --card-bg: #ffffff;
+            --text: #333333;
+            --light-text: #7f8c8d;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: var(--bg);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+
+        header h1 { margin: 0 0 10px 0; font-size: 1.8rem; }
+        header p { margin: 0; color: #bdc3c7; }
+
+        /* Navigation */
+        .nav-container {
+            background: white;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .main-tabs {
+            display: flex;
+            justify-content: center;
+            background: var(--primary);
+        }
+
+        .main-tabs button {
+            flex: 1;
+            padding: 12px;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            opacity: 0.7;
+            transition: 0.3s;
+        }
+
+        .main-tabs button.active {
+            opacity: 1;
+            border-bottom: 3px solid var(--accent);
+            background: rgba(255,255,255,0.1);
+        }
+
+        .sub-nav {
+            display: flex;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 10px;
+            gap: 10px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .sub-nav button {
+            background: var(--bg);
+            border: 1px solid #ddd;
+            padding: 8px 16px;
+            cursor: pointer;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+
+        .sub-nav button.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        .sub-nav::-webkit-scrollbar { display: none; }
+
+        /* Content Area */
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        .view-section { display: none; animation: fadeIn 0.4s; }
+        .view-section.active { display: block; }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--primary);
+        }
+
+        h2 { color: var(--primary); margin-top: 0; font-size: 1.4rem; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        h3 { color: var(--secondary); font-size: 1.1rem; margin: 15px 0 5px 0; }
+
+        .time-block {
+            display: flex;
+            margin-bottom: 15px;
+            border-bottom: 1px dashed #eee;
+            padding-bottom: 10px;
+        }
+
+        .time-label {
+            min-width: 60px;
+            font-weight: bold;
+            color: var(--accent);
+            font-size: 0.9rem;
+        }
+
+        .time-content { flex: 1; }
+
+        /* Info Boxes */
+        .info-box {
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin: 10px 0;
+            font-size: 0.95rem;
+        }
+
+        .info-photo { background: #fff3e0; border-left: 4px solid #ff9800; }
+        .info-drive { background: #e3f2fd; border-left: 4px solid #2196f3; }
+        .info-food { background: #e8f5e9; border-left: 4px solid #4caf50; }
+        .info-alert { background: #ffebee; border-left: 4px solid #f44336; }
+
+        ul { margin: 5px 0; padding-left: 20px; }
+        li { margin-bottom: 5px; }
+
+        .tag {
+            display: inline-block;
+            background: #eee;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-right: 5px;
+            color: #555;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>北九州 8 日深度自駕與攝影之旅</h1>
+    <p>6/2 (JX846 熊本進) - 6/9 (JX841 福岡出) | V2.0 擴充版</p>
+</header>
+
+<div class="nav-container">
+    <div class="main-tabs">
+        <button id="tab-itinerary" class="active" onclick="switchMainTab('itinerary')">每日行程</button>
+        <button id="tab-prep" onclick="switchMainTab('prep')">行前與技術準備</button>
+        <button id="tab-driving" onclick="switchMainTab('driving')">自駕與備案指南</button>
+    </div>
+    
+    <div class="sub-nav" id="dayNav">
+        </div>
+</div>
+
+<div class="container">
+    <div id="view-itinerary" class="view-section active">
+        </div>
+
+    <div id="view-prep" class="view-section">
+        <div class="card">
+            <h2>📸 攝影與硬體準備 (A7C II 專屬)</h2>
+            <ul>
+                <li><strong>鏡頭配置：</strong> 帶上 <strong>20-70mm F4 G</strong> 作為掛機鏡，應付 80% 的廣角大景（熊本城、大觀峰）與街拍。<strong>50-300mm</strong> 放車上，用於捕捉高千穗峽的瀑布特寫、阿蘇火山口細節，以及由布院之森列車進站的壓縮感。</li>
+                <li><strong>色彩與格式：</strong> 九州自然景觀多，善用 10-bit 4:2:2 HEIF 格式，在草千里和火山口這種高動態對比（強光與暗部火山岩）的場景下，能保留最多雲層與陰影細節。</li>
+                <li><strong>偏光鏡 (CPL)：</strong> 6月若天氣晴朗，強烈建議為 20-70mm 配備 CPL，可消除高千穗峽水面反光，並讓天空更藍。</li>
+                <li><strong>資料備份 (Redundancy)：</strong> 出國旅遊資料無價。建議攜帶雙 SD 卡。若飯店網路速度允許，每天晚上可透過 WireGuard / Tailscale VPN，將精選的 RAW 檔直接同步回台灣家中的 Proxmox 伺服器 (如 DL360 Gen9 上的 NAS VM)，達成異地備援。</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h2>🥗 飲食與體能控管</h2>
+            <ul>
+                <li><strong>熱量平衡：</strong> 九州美食極多。若有體態與減脂考量，<strong>熊本的馬肉刺身（櫻肉）</strong>是極佳的低脂高蛋白選擇；下關/門司港的海鮮與河豚也是優質蛋白質。</li>
+                <li><strong>Cheat Meals：</strong> 將熱量額度留給<strong>博多牛腸鍋（もつ鍋）</strong>和<strong>豚骨拉麵</strong>。吃完高熱量餐點的隔天，可安排太宰府或天神商圈的徒步行程來增加 TDEE（每日總熱量消耗）。</li>
+                <li><strong>步行目標：</strong> 在阿蘇草千里和高千穗峽的健行步道，預期每日步數可輕鬆突破 15,000 步。</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="view-driving" class="view-section">
+        <div class="card">
+            <h2>🚗 自駕與車輛設定</h2>
+            <ul>
+                <li><strong>車型選擇：</strong> 九州山路（阿蘇、高千穗、由布院之間）多蜿蜒。建議租賃如 Honda ZR-V、Toyota RAV4 Hybrid 或 Corolla Cross 等中型 SUV。混合動力 (e-CVT) 在山區的平順度極佳，且底盤高度適中，視野較好。</li>
+                <li><strong>KEP (Kyushu Expressway Pass)：</strong> 務必在租車時加購 ETC 卡與 KEP。6/2 到 6/6 從熊本一路開到福岡，會大量使用高速公路，買 Pass 絕對回本。</li>
+                <li><strong>視覺防護：</strong> 6月陽光刺眼，且山區路面反光強。開車時務必配戴具備抗 UV 及防眩光功能的太陽眼鏡（或如 Eyezen 級別的變色鏡片），降低長時間注視路況的視覺疲勞。</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h2>🌧️ 梅雨季天氣與備案 (Plan B)</h2>
+            <div class="info-alert">6月初極高機率遇到梅雨。請隨身攜帶輕便雨衣、相機防雨套，並將鞋子噴上防水噴霧。</div>
+            <ul>
+                <li><strong>阿蘇山起霧/下雨：</strong> 若大觀峰與草千里起大霧（白牆），果斷放棄，改去「阿蘇火山博物館」或提早下山前往「阿蘇神社」及「門前町水基巡禮」（吃赤牛丼）。</li>
+                <li><strong>高千穗峽水位過高：</strong> 若遇大雨，高千穗峽會暫停划船。備案是改為純步道散策，並增加「天岩戶神社」的停留時間，或找間景觀咖啡廳休息。</li>
+                <li><strong>福岡雨天：</strong> 取消戶外景點，改為全室內行程：天神地下街、博多運河城、或 LalaPort 福岡（鋼彈）。</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Itinerary Data
+    const itineraryData = [
+        {
+            day: 1, date: '6/2 (日)', title: '入境火之國，熊本城下町',
+            content: `
+                <div class="info-drive">🚗 交通：10:45 JX846 抵達 KMJ -> 機場取車 -> 熊本市區 (車程約 40 分)</div>
+                <div class="time-block">
+                    <div class="time-label">12:30</div>
+                    <div class="time-content"><strong>機場取車與設定：</strong>確認 ETC 卡插入，設定導航避開收費站（市區內不需要上高速）。</div>
+                </div>
+                <div class="time-block">
+                    <div class="time-label">14:00</div>
+                    <div class="time-content"><strong>熊本城與櫻之馬場 城彩苑：</strong>將車停在櫻之馬場的停車場。步行參觀修復後的熊本城天守閣。城彩苑有許多小吃（炸蓮藕芥末）。</div>
+                </div>
+                <div class="time-block">
+                    <div class="time-label">18:00</div>
+                    <div class="time-content"><strong>晚餐：菅乃屋 或 むつ五郎：</strong>品嚐正宗熊本馬肉料理。馬肉脂肪極低，是完美的減脂餐。<br>
+                    <em>備註：知名餐廳強烈建議提前線上預約。</em></div>
+                </div>
+                <div class="time-block">
+                    <div class="time-label">20:00</div>
+                    <div class="time-content"><strong>住宿：</strong>熊本市區（上下通商店街附近，方便逛街與採買藥妝）。</div>
+                </div>
+                <div class="info-photo">📸 攝影：熊本城的黑色外觀在下午至傍晚的光影下對比強烈，可利用 20-70mm 捕捉城牆的石垣細節與建築張力。</div>
+            `
+        },
+        {
+            day: 2, date: '6/3 (一)', title: '壯闊阿蘇，百萬級火山口',
+            content: `
+                <div class="info-drive">🚗 交通：熊本市區 -> 國道 57 號 -> 阿蘇 (車程約 1.5 - 2 小時)</div>
+                <div class="time-block">
+                    <div class="time-label">09:00</div>
+                    <div class="time-content"><strong>出發前往阿蘇大觀峰：</strong>從高處俯瞰阿蘇五岳，視野極佳。</div>
+                </div>
+                <div class="time-block">
+                    <div class="time-label">11:30</div>
+                    <div class="time-content"><strong>午餐：阿蘇赤牛丼：</strong>推薦「いまきん食堂」(Imakin 食堂，需排隊) 或周邊的赤牛料理。赤牛屬於瘦肉比例高的和牛，負擔較小。</div>
+                </div>
+                <div class="time-block">
+                    <div class="time-label">13:30</div>
+                    <div class="time-content"><strong>草千里之濱 & 中岳火山口：</strong>開車直達山上。若火山口瓦斯濃度安全即可靠近。<br>
+                    <span class="tag">Plan B</span> 若山上起大霧，改往「阿蘇卡德利動物樂園」或提早前往南阿蘇。</div>
+                </div>
+                <div class="time-block">
+                    <div class="time-label">16:30</div>
+                    <div class="time-content"><strong>上色見熊野座神社：</strong>充滿神祕氛圍的青苔階梯，動畫《螢火之森》取景地。</div>
+                </div>
+                <div class="time-block">
+                    <div class="time-label">晚上</div>
+                    <div class="time-content"><strong>住宿：</strong>南阿蘇村 或 高森町周邊溫泉旅館。</div>
+                </div>
+                <div class="info-photo">📸 攝影：上色見熊野座神社光線極暗，A7C II 的全片幅高 ISO 加上大光圈（若有定焦），或依賴機身防手震降低快門速度來拍攝。</div>
+            `
+        },
+        {
+            day: 3, date: '6/4 (二)', title: '神話之鄉高千穗，峽谷絕景',
+            content: `
+                <div class="info-drive">🚗 交通：南阿蘇 -> 高千穗 (車程約 1 小時)</div>
+                <div class="time-block">
+                    <div class="time-label">09:30</div>
+                    <div class="time-content"><strong>高千穗峽划船：</strong><span style="color:red; font-weight:bold;">務必提前一個月上網預約！</span> 現場排幾乎排不到。</div>
+                </div>
+                <div class="time-block">
+                    <div class="time-label">12:00</div>
+                    <div class="time-content"><strong>午餐：流水麵 或 高千穗牛：</strong>千穗之家流水麵是當地特色體驗。</div>
+                </div>
+                <div class="time-block">
+                    <div class="time-label">14:00</div>
+                    <div class="time-content"><strong>天岩戶神社 & 天安河原：</strong>沿著溪流走到充滿堆石的山洞，非常壯觀。步行有助於消化。</div>
+                </div>
+                <div class="time-block">
+                    <div class="time-label">16:30</div>
+                    <div class="time-content"><strong>驅車前往由布院/別府：</strong>這是一段較長的拉車（約 2.5 小時），會行經山路與高速。</div>
+                </div>
+                <div class="time-block">
+                    <div class="time-label">晚上</div>
+                    <div class="time-content"><strong>住宿：</strong>由布院 或 別府（建議連續住兩晚，免去搬行李的麻煩）。</div>
+                </div>
+                <div class="info-photo">📸 攝影：划船時水滴易濺起，注意鏡頭防護。換上 50-300mm 可以在不靠近的情況下捕捉瀑布特寫與光影折射。</div>
+            `
+        },
+        {
+            day: 4, date: '6/5 (三)', title: '晨霧金鱗湖與由布院散策',
+            content: `
+                <div class="info-drive">🚗 交通：由布院周邊自駕或步行</div>
+                <div class="time-block">
+                    <div class="time-label">06:30</div>
+                    <div class="time-content"><strong>晨光金鱗湖：</strong>清晨是金鱗湖最美的時候，湖面會有溫泉霧氣繚繞，且避開了觀光人潮。</div>
+                </div>
+                <div class="time-block">
+                    <div class="time-label">09:00</div>
+                    <div class="time-content"><strong>回飯店吃早餐 / 休息</strong></div>
+                </div>
+                <div class="time-block">
+                    <div class="time-label">10:30</div>
+                    <div class="time-content"><strong>湯之坪街道：</strong>逛特色小店，吃 B-Speak 蛋糕捲、金賞可樂餅。</div>
+                </div>
+                <div class="time-block">
+                    <div class="time-label">14:00</div>
+                    <div class="time-content"><strong>鐵道攝影：</strong>在由布院車站附近或沿線田野，拍攝綠色的「由布院之森」特快列車進出站。</div>
+                </div>
+                <div class="time-block">
+                    <div class="time-label">16:00</div>
+                    <div class="time-content"><strong>COMICO ART MUSEUM YUFUIN：</strong>由隈研吾設計的現代美術館（需預約），建築極具特色。</div>
+                </div>
+            `
+        },
+        {
+            day: 5, date: '6/6 (四)', title: '別府地獄巡禮，還車轉戰福岡',
+            content: `
+                <div class="info-drive">🚗 交通：由布院 -> 別府 -> 福岡市區 (車程約 2 小時) | 🚄 晚上改搭地鐵</div>
+                <div class="time-block">
+                    <div class="time-label">09:30</div>
+                    <div class="time-content"><strong>別府地獄巡禮：</strong>挑選最具特色的幾個即可（如海地獄的鈷藍色池水、血池地獄）。</div>
+                </div>
+                <div class="time-block">
+                    <div class="time-label">12:30</div>
+                    <div class="time-content"><strong>地獄蒸工房 鐵輪：</strong>利用溫泉蒸氣烹調蔬菜與海鮮，無油煙且保留原味，完美的健康餐點。</div>
+                </div>
+                <div class="time-block">
+                    <div class="time-label">14:00</div>
+                    <div class="time-content"><strong>上高速公路前往福岡：</strong>使用 KEP 行駛大分自動車道接九州自動車道。</div>
+                </div>
+                <div class="time-block">
+                    <div class="time-label">16:30</div>
+                    <div class="time-content"><strong>福岡市區還車：</strong>建議在博多車站周邊的營業所還車。後續行程依賴大眾運輸即可。</div>
+                </div>
+                <div class="time-block">
+                    <div class="time-label">18:30</div>
+                    <div class="time-content"><strong>晚餐與夜生活：</strong>中洲川端屋台體驗，或吃一碗博多豚骨拉麵（Shin-Shin 或 一双）。</div>
+                </div>
+            `
+        },
+        {
+            day: 6, date: '6/7 (五)', title: '跨海跳島，門司港與下關',
+            content: `
+                <div class="info-drive">🚄 交通：使用 JR 九州 Pass (北九州版) 或 直接刷 IC 卡搭乘 JR 特急至門司港</div>
+                <div class="time-block">
+                    <div class="time-label">09:30</div>
+                    <div class="time-content"><strong>門司港懷舊區：</strong>拍攝大正浪漫風格的紅磚建築與門司港車站。</div>
+                </div>
+                <div class="time-block">
+                    <div class="time-label">11:30</div>
+                    <div class="time-content"><strong>唐戶市場 (下關)：</strong>搭乘聯絡船（5分鐘）跨越關門海峽到本州。每逢五六日唐戶市場有「活跳跳馬關街」，可買便宜新鮮的握壽司和河豚刺身在海邊吃。</div>
+                </div>
+                <div class="time-block">
+                    <div class="time-label">14:00</div>
+                    <div class="time-content"><strong>關門海峽行人隧道：</strong>走海底隧道跨越九州與本州的交界線，體驗一步跨兩島。</div>
+                </div>
+                <div class="time-block">
+                    <div class="time-label">16:00</div>
+                    <div class="time-content"><strong>小倉城 (可選)：</strong>回程若有體力，可順遊小倉城與周邊商場。</div>
+                </div>
+                <div class="time-block">
+                    <div class="time-label">19:00</div>
+                    <div class="time-content"><strong>晚餐：博多車站周邊：</strong>如牛舌定食、或是烤肉。</div>
+                </div>
+            `
+        },
+        {
+            day: 7, date: '6/8 (六)', title: '太宰府天滿宮與巨型鋼彈',
+            content: `
+                <div class="info-drive">🚆 交通：西鐵電車 (前往太宰府) & 巴士 (前往 LalaPort)</div>
+                <div class="time-block">
+                    <div class="time-label">09:30</div>
+                    <div class="time-content"><strong>太宰府天滿宮：</strong>目前本殿正在進行「臨時本殿」展出（由藤本壯介設計的漂浮森林），非常有建築學與攝影價值。吃個梅枝餅。</div>
+                </div>
+                <div class="time-block">
+                    <div class="time-label">13:00</div>
+                    <div class="time-content"><strong>天神商圈 / 購物：</strong>返回天神，逛地下街，可在此補齊電器（BicCamera）、相機周邊或衣物。</div>
+                </div>
+                <div class="time-block">
+                    <div class="time-label">16:00</div>
+                    <div class="time-content"><strong>LalaPort 福岡：</strong>朝聖 1:1 RX-93ff ν 鋼彈。整點有手臂與頭部的連動燈光秀。</div>
+                </div>
+                <div class="time-block">
+                    <div class="time-label">19:00</div>
+                    <div class="time-content"><strong>晚餐：博多牛腸鍋 (もつ鍋)：</strong>推薦「大山 (おおやま)」或「前田屋」。雖然熱量較高，但滿滿的韭菜與濃郁湯頭是完美的 Trip 結尾。</div>
+                </div>
+            `
+        },
+        {
+            day: 8, date: '6/9 (日)', title: '最終採買與賦歸',
+            content: `
+                <div class="info-drive">✈️ 航班：14:15 JX841 起飛 (建議 12:00 前抵達福岡國際機場)</div>
+                <div class="time-block">
+                    <div class="time-label">09:00</div>
+                    <div class="time-content"><strong>博多車站最後採買：</strong>買齊伴手禮（如：福砂屋長崎蛋糕、明太子仙貝、博多通饅頭）。車站內的超市也是補貨好去處。</div>
+                </div>
+                <div class="time-block">
+                    <div class="time-label">11:00</div>
+                    <div class="time-content"><strong>前往機場：</strong>福岡機場是全日本市區便利性最高的機場。從博多搭地鐵到機場國內線只需 5 分鐘，再轉乘免費接駁巴士到國際線航廈。</div>
+                </div>
+                <div class="time-block">
+                    <div class="time-label">12:00</div>
+                    <div class="time-content"><strong>報到與出境：</strong>JX841 報到、通關。福岡機場免稅店有許多保冷袋包裝的明太子可帶回台灣。</div>
+                </div>
+            `
+        }
+    ];
+
+    // Initialize UI
+    const dayNav = document.getElementById('dayNav');
+    const itineraryView = document.getElementById('view-itinerary');
+
+    // Render Sub-nav buttons for days
+    itineraryData.forEach((day, index) => {
+        const btn = document.createElement('button');
+        btn.innerText = `Day ${day.day}: ${day.date.split(' ')[0]}`;
+        btn.onclick = () => showDay(index);
+        btn.id = `btn-day-${index}`;
+        dayNav.appendChild(btn);
+    });
+
+    // Render Daily Content Cards
+    itineraryData.forEach((day, index) => {
+        const card = document.createElement('div');
+        card.className = 'card day-card';
+        card.id = `content-day-${index}`;
+        card.style.display = index === 0 ? 'block' : 'none';
+        
+        card.innerHTML = `
+            <h2>Day ${day.day} | ${day.title}</h2>
+            ${day.content}
+        `;
+        itineraryView.appendChild(card);
+    });
+
+    // Initial state
+    document.getElementById('btn-day-0').classList.add('active');
+
+    // Functions
+    function showDay(index) {
+        // Hide all day cards
+        document.querySelectorAll('.day-card').forEach(el => el.style.display = 'none');
+        document.querySelectorAll('#dayNav button').forEach(el => el.classList.remove('active'));
+        
+        // Show selected
+        document.getElementById(`content-day-${index}`).style.display = 'block';
+        document.getElementById(`btn-day-${index}`).classList.add('active');
+        
+        // Smooth scroll to top of itinerary
+        window.scrollTo({ top: dayNav.offsetTop - 20, behavior: 'smooth' });
+    }
+
+    function switchMainTab(tabName) {
+        // Handle Buttons
+        document.querySelectorAll('.main-tabs button').forEach(btn => btn.classList.remove('active'));
+        document.getElementById(`tab-${tabName}`).classList.add('active');
+
+        // Handle Views
+        document.querySelectorAll('.view-section').forEach(view => view.classList.remove('active'));
+        document.getElementById(`view-${tabName}`).classList.add('active');
+
+        // Toggle sub-nav visibility
+        dayNav.style.display = tabName === 'itinerary' ? 'flex' : 'none';
+        
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>
