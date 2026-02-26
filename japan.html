@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>北九州 8 天 7 夜自由行規劃</title>
+    <style>
+        :root {
+            --primary: #c93a40; 
+            --secondary: #1976d2;
+            --bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-main: #2d3436;
+            --text-muted: #636e72;
+            --nav-bg: #ffffff;
+        }
+
+        * { box-sizing: border-box; }
+        
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; 
+            background: var(--bg); 
+            color: var(--text-main); 
+            margin: 0; 
+            line-height: 1.6; 
+        }
+
+        /* Navbar Styles */
+        nav {
+            background: var(--nav-bg);
+            padding: 15px 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        nav button {
+            background: transparent;
+            border: 2px solid transparent;
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+
+        nav button:hover {
+            color: var(--primary);
+            background: rgba(201, 58, 64, 0.05);
+        }
+
+        nav button.active {
+            color: var(--primary);
+            border-color: var(--primary);
+            background: rgba(201, 58, 64, 0.08);
+        }
+
+        /* Page Container */
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* SPA Page Sections */
+        .page-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        header { 
+            text-align: center; 
+            margin-bottom: 50px; 
+        }
+
+        header h1 { color: var(--primary); font-size: 2.2rem; margin: 0 0 10px 0; }
+        header p { color: var(--text-muted); font-size: 1.1rem; margin: 0; }
+
+        /* Timeline Styles */
+        .timeline { position: relative; padding: 20px 0; }
+        .timeline::before { 
+            content: ''; position: absolute; left: 50%; top: 0; bottom: 0; 
+            width: 4px; background: #dfe6e9; transform: translateX(-50%); border-radius: 2px;
+        }
+
+        .day-card { 
+            display: flex; justify-content: space-between; align-items: center; 
+            margin-bottom: 60px; position: relative; 
+            opacity: 0; transform: translateY(30px); transition: all 0.6s ease; 
+        }
+
+        .day-card.visible { opacity: 1; transform: translateY(0); }
+        .day-card:nth-child(even) { flex-direction: row-reverse; }
+
+        .content, .image-box { width: 46%; }
+        
+        .content { 
+            background: var(--card-bg); padding: 25px; border-radius: 16px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.04); 
+        }
+
+        .content h2 { 
+            color: var(--primary); margin-top: 0; border-bottom: 2px solid #f1f2f6; 
+            padding-bottom: 10px; display: flex; justify-content: space-between; align-items: baseline;
+        }
+
+        .content h2 span { font-size: 1rem; color: var(--text-muted); font-weight: normal; }
+        .content ul { padding-left: 20px; margin-bottom: 15px; }
+        .content li { margin-bottom: 8px; }
+
+        .image-box { 
+            border-radius: 16px; overflow: hidden; height: 260px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        }
+        .image-box img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .image-box:hover img { transform: scale(1.05); }
+
+        .marker { 
+            position: absolute; left: 50%; top: 30px; width: 22px; height: 22px; 
+            background: var(--primary); border: 4px solid #fff; border-radius: 50%; 
+            transform: translateX(-50%); box-shadow: 0 0 0 5px rgba(201, 58, 64, 0.1); z-index: 2;
+        }
+
+        .tags { display: flex; gap: 8px; flex-wrap: wrap; }
+        .tag { 
+            padding: 5px 12px; border-radius: 20px; font-size: 0.85rem; 
+            font-weight: bold; display: inline-flex; align-items: center;
+        }
+        .tag.hotel { background: #e3f2fd; color: var(--secondary); }
+        .tag.transport { background: #fff3e0; color: #e65100; }
+        .tag.warning { background: #ffeaa7; color: #d63031; }
+
+        /* Generic Card Styles for Suggestions & Resources */
+        .info-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+
+        .info-card h3 { color: var(--primary); margin-top: 0; border-bottom: 2px solid #f1f2f6; padding-bottom: 10px;}
+        .info-card h4 { color: var(--text-main); margin-bottom: 5px;}
+        .info-card p, .info-card ul { color: var(--text-muted); }
+        .info-card a { color: var(--secondary); text-decoration: none; font-weight: bold;}
+        .info-card a:hover { text-decoration: underline; }
+
+        @media(max-width: 800px) {
+            .timeline::before { left: 30px; }
+            .day-card, .day-card:nth-child(even) { flex-direction: column; align-items: flex-start; padding-left: 60px; }
+            .content, .image-box { width: 100%; margin-bottom: 20px; }
+            .marker { left: 30px; top: 25px; }
+            nav { flex-wrap: wrap; }
+            nav button { width: 100%; margin-bottom: 5px;}
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <button class="nav-btn active" onclick="switchTab('itinerary', this)">📍 行程總覽</button>
+        <button class="nav-btn" onclick="switchTab('suggestions', this)">💡 行程建議與修改</button>
+        <button class="nav-btn" onclick="switchTab('resources', this)">🔗 實用參考資料</button>
+    </nav>
+
+    <div class="container">
+        
+        <div id="itinerary" class="page-section active">
+            <header>
+                <h1>北九州 8 天 7 夜自由行</h1>
+                <p>不自駕 ＋ JR北九州Pass ＋ 由布院溫泉體驗</p>
+            </header>
+
+            <div class="timeline">
+                <div class="day-card">
+                    <div class="marker"></div>
+                    <div class="content">
+                        <h2>DAY 1 <span>6/2 (二) 熊本</span></h2>
+                        <ul>
+                            <li><strong>10:45</strong> 抵達熊本機場，搭乘機場巴士至熊本站</li>
+                            <li>下午輕鬆散策：熊本城、櫻之馬場城彩苑</li>
+                            <li>上通／下通商店街逛街</li>
+                            <li>晚餐建議：勝烈亭炸豬排 或 馬肉料理</li>
+                        </ul>
+                        <div class="tags"><span class="tag hotel">🛏 THE BLOSSOM KUMAMOTO</span></div>
+                    </div>
+                    <div class="image-box"><img src="https://images.unsplash.com/photo-1596401057633-54a8fe8ef647?auto=format&fit=crop&w=800&q=80" alt="Kumamoto"></div>
+                </div>
+
+                <div class="day-card">
+                    <div class="marker"></div>
+                    <div class="content">
+                        <h2>DAY 2 <span>6/3 (三) 阿蘇</span></h2>
+                        <ul>
+                            <li>參加阿蘇 Klook 套裝一日遊（熊本站出發）</li>
+                            <li>景點：阿蘇中岳火山口、草千里、阿蘇神社</li>
+                            <li>約 17:00 結束行程返回熊本</li>
+                        </ul>
+                        <div class="tags">
+                            <span class="tag transport">🎫 JR Pass 啟用</span>
+                            <span class="tag hotel">🛏 THE BLOSSOM KUMAMOTO</span>
+                        </div>
+                    </div>
+                    <div class="image-box"><img src="https://images.unsplash.com/photo-1563409236302-8442b5e644df?auto=format&fit=crop&w=800&q=80" alt="Mount Aso"></div>
+                </div>
+
+                <div class="day-card">
+                    <div class="marker"></div>
+                    <div class="content">
+                        <h2>DAY 3 <span>6/4 (四) 由布院</span></h2>
+                        <ul>
+                            <li>熊本 → 久留米 (九州新幹線)</li>
+                            <li>久留米 → 由布院 (搭乘 <strong>由布院之森</strong>)</li>
+                            <li>下午：湯之坪街道、金鱗湖、甜點巡禮</li>
+                        </ul>
+                        <div class="tags">
+                            <span class="tag transport">🚄 由布院之森 (需劃位)</span>
+                            <span class="tag hotel">🛏 Lamp no Yado</span>
+                        </div>
+                    </div>
+                    <div class="image-box"><img src="https://images.unsplash.com/photo-1610486844438-bb45b7333642?auto=format&fit=crop&w=800&q=80" alt="Yufuin"></div>
+                </div>
+
+                <div class="day-card">
+                    <div class="marker"></div>
+                    <div class="content">
+                        <h2>DAY 4 <span>6/5 (五) 別府</span></h2>
+                        <ul>
+                            <li>上午再訪金鱗湖</li>
+                            <li>搭乘特急前往別府</li>
+                            <li>別府地獄巡禮（海地獄＋血之池地獄）</li>
+                            <li>晚餐：別府特產溫泉蒸料理</li>
+                        </ul>
+                        <div class="tags"><span class="tag hotel">🛏 別府站附近飯店</span></div>
+                    </div>
+                    <div class="image-box"><img src="https://images.unsplash.com/photo-1601625463687-25e221b66710?auto=format&fit=crop&w=800&q=80" alt="Beppu Onsen"></div>
+                </div>
+
+                <div class="day-card">
+                    <div class="marker"></div>
+                    <div class="content">
+                        <h2>DAY 5 <span>6/6 (六) 小倉/門司港</span></h2>
+                        <ul>
+                            <li>別府搭乘特急至小倉，小倉城散步，旦過市場午餐</li>
+                            <li>前往門司港，懷舊街區散步，吃燒咖哩</li>
+                            <li>傍晚搭乘特急「音速號」移動至福岡博多</li>
+                        </ul>
+                        <div class="tags">
+                            <span class="tag warning">⚠️ 勿搭新幹線 (見建議)</span>
+                            <span class="tag hotel">🛏 博多</span>
+                        </div>
+                    </div>
+                    <div class="image-box"><img src="https://images.unsplash.com/photo-1579308350174-8022b3cb4787?auto=format&fit=crop&w=800&q=80" alt="Mojiko Port Area"></div>
+                </div>
+
+                <div class="day-card">
+                    <div class="marker"></div>
+                    <div class="content">
+                        <h2>DAY 6 <span>6/7 (日) 太宰府/福岡</span></h2>
+                        <ul>
+                            <li>上午：太宰府天滿宮、表參道、隈研吾星巴克</li>
+                            <li>下午：天神地下街、博多運河城</li>
+                            <li>晚餐：中洲屋台體驗福岡夜生活</li>
+                        </ul>
+                        <div class="tags">
+                            <span class="tag transport">🎫 JR Pass 最後一日</span>
+                            <span class="tag hotel">🛏 博多</span>
+                        </div>
+                    </div>
+                    <div class="image-box"><img src="https://images.unsplash.com/photo-1545569341-9eb8b30979d9?auto=format&fit=crop&w=800&q=80" alt="Dazaifu Shrine"></div>
+                </div>
+
+                <div class="day-card">
+                    <div class="marker"></div>
+                    <div class="content">
+                        <h2>DAY 7 <span>6/8 (一) 糸島</span></h2>
+                        <ul>
+                            <li>搭乘 JR筑肥線 前往筑前前原站，轉乘公車</li>
+                            <li>櫻井二見浦（白色鳥居＋絕美海景）、海景咖啡廳</li>
+                            <li>下午返回市區最後採買</li>
+                        </ul>
+                        <div class="tags">
+                            <span class="tag transport">🚌 需刷西瓜卡/ICOCA</span>
+                            <span class="tag hotel">🛏 博多</span>
+                        </div>
+                    </div>
+                    <div class="image-box"><img src="https://images.unsplash.com/photo-1505069796068-d7607a908920?auto=format&fit=crop&w=800&q=80" alt="Itoshima Torii"></div>
+                </div>
+
+                <div class="day-card">
+                    <div class="marker"></div>
+                    <div class="content">
+                        <h2>DAY 8 <span>6/9 (二) 賦歸</span></h2>
+                        <ul>
+                            <li>早上福岡市區最後補給</li>
+                            <li>11:30 前抵達福岡機場</li>
+                            <li>14:15 班機起飛 ✈️</li>
+                        </ul>
+                    </div>
+                    <div class="image-box"><img src="https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=800&q=80" alt="Fukuoka City"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="suggestions" class="page-section">
+            <header>
+                <h1>行程健檢與優化建議</h1>
+                <p>避開常見陷阱，讓旅程更順暢</p>
+            </header>
+
+            <div class="info-card">
+                <h3>🚨 最大的陷阱：小倉到博多的交通 (DAY 5)</h3>
+                <p><strong>注意：</strong>「小倉 ⇄ 博多」這段的新幹線屬於「山陽新幹線」（JR西日本營運），<strong>你的 JR 北九州 Pass 不能搭乘這段新幹線！</strong></p>
+                <p><strong>修改建議：</strong>請搭乘 JR 九州的<strong>特急列車（如：音速號 Sonic）</strong>。車程約 40-50 分鐘，Pass 完美涵蓋，千萬不要走錯月台搭到新幹線，否則會被要求補高額票價喔！</p>
+            </div>
+
+            <div class="info-card">
+                <h3>🧳 行李寄放與寄送建議 (DAY 3 - DAY 5)</h3>
+                <p>由於中間會換兩次飯店（由布院、別府），拖著大行李逛街很痛苦：</p>
+                <ul>
+                    <li><strong>方案 A（行李特急）：</strong>在 DAY 3 離開熊本時，直接將大件行李用「宅急便」寄到 DAY 5 的博多飯店。帶輕便背包去由布院和別府住兩晚。</li>
+                    <li><strong>方案 B（投幣置物櫃）：</strong>DAY 5 抵達小倉時，將行李鎖在小倉車站的置物櫃（小倉車站置物櫃很多），然後兩手空空去逛小倉城與門司港，晚上再回小倉拿行李搭車去博多。</li>
+                </ul>
+            </div>
+
+            <div class="info-card">
+                <h3>🚌 糸島交通提醒 (DAY 7)</h3>
+                <p>你的 JR Pass 在 DAY 6 已經到期，DAY 7 往糸島需使用 IC 卡（如 Suica、ICOCA）。</p>
+                <p>要到達「櫻井二見浦（白色鳥居）」，坐火車到「筑前前原站」後，必須轉乘<strong>昭和巴士（西浦線）</strong>。公車班次不多，建議出發前務必用 Google Maps 查好公車接駁時間，以免在車站空等。</p>
+            </div>
+        </div>
+
+        <div id="resources" class="page-section">
+            <header>
+                <h1>實用參考資料庫</h1>
+                <p>訂票、時刻表與美食查詢</p>
+            </header>
+
+            <div class="info-card">
+                <h3>🚆 交通與預約</h3>
+                <ul>
+                    <li><a href="https://kyushurailpass.jrkyushu.co.jp/reserve/TopPage" target="_blank">JR九州座位線上預約系統</a> (用於提前劃位「由布院之森」，強烈建議提早劃位！)</li>
+                    <li><a href="https://www.jrkyushu.co.jp/chinese/railpass/railpass.html" target="_blank">JR 北九州鐵路周遊券官網範圍圖</a></li>
+                    <li><a href="http://showa-bus.jp/" target="_blank">昭和巴士官網 (糸島交通時刻表查詢)</a></li>
+                </ul>
+            </div>
+
+            <div class="info-card">
+                <h3>🍣 美食餐廳推薦查詢 (Tabelog)</h3>
+                <ul>
+                    <li><a href="https://tabelog.com/tw/kumamoto/A4301/A430101/43000166/" target="_blank">勝烈亭 新市街本店 (熊本最強炸豬排)</a></li>
+                    <li><a href="https://tabelog.com/tw/fukuoka/rstLst/motsunabe/" target="_blank">福岡 牛腸鍋 (もつ鍋) 排名推薦</a></li>
+                    <li><a href="https://tabelog.com/tw/fukuoka/rstLst/ramen/" target="_blank">福岡 豚骨拉麵 排名推薦</a></li>
+                </ul>
+            </div>
+            
+            <div class="info-card">
+                <h3>♨️ 景點資訊</h3>
+                <ul>
+                    <li><a href="http://www.beppu-jigoku.com/" target="_blank">別府地獄巡禮官網</a></li>
+                    <li><a href="https://www.mojiko.info/" target="_blank">門司港懷舊區導覽</a></li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // SPA Tab 切換邏輯
+        function switchTab(tabId, btnElement) {
+            // 隱藏所有頁面
+            document.querySelectorAll('.page-section').forEach(page => {
+                page.classList.remove('active');
+            });
+            // 取消所有按鈕的 active 狀態
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // 顯示目標頁面
+            document.getElementById(tabId).classList.add('active');
+            // 設定當前按鈕為 active
+            btnElement.classList.add('active');
+
+            // 如果切換回行程總覽，重新觸發動畫檢測
+            if(tabId === 'itinerary') {
+                checkCardsVisibility();
+            }
+        }
+
+        // 捲動觸發動畫 (Scroll Animation)
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+
+        function checkCardsVisibility() {
+            const cards = document.querySelectorAll('.day-card');
+            cards.forEach(card => observer.observe(card));
+        }
+
+        // 初始化
+        document.addEventListener("DOMContentLoaded", () => {
+            checkCardsVisibility();
+        });
+    </script>
+</body>
+</html>
